@@ -1,0 +1,13 @@
+defaults:
+  kind: Application
+  namespace: argocd
+  project: default
+  server: https://kubernetes.default.svc
+  path: Chart
+
+
+#App specific stuff
+bankapi:
+  repoURL: https://github.com/pimliprentiss/bankapi
+  name: bankapi-prod
+  namespace: bankapi

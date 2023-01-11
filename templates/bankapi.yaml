@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: {{ .Values.defaults.kind }}
+metadata:
+  name: {{ .Values.bankapi.name }}
+  namespace: {{ .Values.defaults.namespace }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: {{ .Values.defaults.project }}
+  source:
+    repoURL: {{ .Values.bankapi.repoURL }}
+    targetRevision: HEAD
+    path: {{ .Values.defaults.path }}
+  destination:
+    server: {{ .Values.defaults.server }}
+    namespace: {{ .Values.bankapi.namespace }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+    - CreateNamespace=true
